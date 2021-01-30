@@ -35,6 +35,11 @@ h1 {
   color: var(--primary);
   font-size: 64px;
 }
+h2 {
+  font-family: "Satisfy", cursive;
+  color: var(--primary);
+  font-size: 40px;
+}
 label {
   color: var(--font-secondary);
 }
@@ -94,6 +99,10 @@ ul li b {
 
 ul li:nth-child(odd) {
   background-color: var(--secondary);
+}
+
+ul li:nth-child(odd) strong {
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar {
