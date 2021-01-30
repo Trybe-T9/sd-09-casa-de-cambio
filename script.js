@@ -50,8 +50,29 @@ const fetchCurrencyAsyncAwait = async (currency) => {
   } catch (error) {
     window.alert(error);
   }
-  
-  
+}
+
+const hendleBTC = (object) => {
+  const btcRates = Object.values(object.bpi);
+  btcRates.forEach(({ code, rate_float }) => {
+    const ul = document.querySelector('#currency-list');
+    const li = document.createElement('li');
+    const rateFormated = Math.round(rate_float * 100) / 100;
+    li.innerHTML = `<strong>${code}:</strong> ${rateFormated}`;
+    ul.appendChild(li);
+  });
+}
+
+const fetchBTCAsyncAwait = async () => {
+  const linkBTC = `https://api.coindesk.com/v1/bpi/currentprice.json`;
+
+  try {
+    const promise = await fetch(linkBTC);
+    const object = await promise.json();
+    hendleBTC(object);
+  } catch (error) {
+    alert(error);
+  }
 }
 
 const clearList = () => {
@@ -62,10 +83,11 @@ const clearList = () => {
 const handleSearchEvent = () => {
   const searchInput = document.querySelector('#currency-input');
   const currency = searchInput.value.toUpperCase();
-
+  
   clearList();
 
-  fetchCurrencyAsyncAwait(currency);
+  if (currency === 'BTC') fetchBTCAsyncAwait();
+  else fetchCurrencyAsyncAwait(currency);
 }
 
 const setupEvents = () => {
